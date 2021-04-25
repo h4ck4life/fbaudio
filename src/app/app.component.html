@@ -18,7 +18,7 @@
             <div class="card-header-title">
               <div class="field is-grouped">
                 <p class="control is-expanded">
-                  <input #fbvidurl class="input" [(value)]="urlValue" type="text" placeholder="Facebook video url...">
+                  <input #fbvidurl class="input" [value]="urlValue" (change)="urlValue=$event.target.value" type="text" placeholder="Facebook video url...">
                 </p>
                 <p class="control is-expanded">
                   <button #listentbtn class="button is-info" (click)="listenBtn()">
