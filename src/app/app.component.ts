@@ -60,9 +60,8 @@ export class AppComponent {
 
   listenBtn(): void {
     console.log(this.urlValue);
-
-    const fbUrlValue = this.fbVidUrlElement.nativeElement.value;
-    if (fbUrlValue && fbUrlValue != '') {
+    const fbUrlValue = this.fbVidUrlElement.nativeElement.value as string;
+    if (fbUrlValue && fbUrlValue != '' && fbUrlValue.includes('https')) {
       this.disableBtnState(true);
       this.facebookService.getAudioLink(fbUrlValue).subscribe(
         (response) => {
@@ -79,6 +78,7 @@ export class AppComponent {
           console.log(error);
           this.disableBtnState(false);
           this.fbVidUrlElement.nativeElement.value = "";
+          this.fbVidUrlElement.nativeElement.classList.remove("is-danger");
           this.showErrorMsg("Please use valid facebook video url");
         },
         () => {
@@ -90,6 +90,8 @@ export class AppComponent {
       )
     } else {
       this.fbVidUrlElement.nativeElement.classList.toggle("is-danger");
+      this.fbVidUrlElement.nativeElement.value = "";
+      this.showErrorMsg("Please use valid facebook video url");
     }
   }
 
