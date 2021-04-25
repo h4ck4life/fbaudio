@@ -17,8 +17,12 @@
           <header class="card-header">
             <div class="card-header-title">
               <div class="field is-grouped">
-                <p class="control is-expanded">
-                  <input #fbvidurl class="input" [value]="urlValue" (change)="urlValue=$event.target.value" type="text" placeholder="Facebook video url...">
+                <p class="control is-expanded has-icons-left">
+                  <input #fbvidurl class="input" [value]="urlValue" (change)="urlValue=$event.target.value" type="text"
+                    placeholder="Facebook video url...">
+                    <span class="icon is-small is-left">
+                      <i class="fab fa-facebook-square"></i>
+                    </span>
                 </p>
                 <p class="control is-expanded">
                   <button #listentbtn class="button is-info" (click)="listenBtn()">
@@ -40,7 +44,9 @@
           </div>
           <footer class="card-footer">
             <p class="card-footer-item" style="font-size: 0.8em;color: #adadad;">
-              <span style="margin-right: 3px;">Made with love by</span><a target="_blank" href="https://twitter.com/h4ck4life">@h4ck4life</a>
+              <span style="margin-right: 3px;">Made with love by</span>
+              <i class="fab fa-twitter"></i>
+              <a target="_blank" href="https://twitter.com/h4ck4life">@h4ck4life</a>
             </p>
           </footer>
         </div>
