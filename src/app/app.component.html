@@ -6,8 +6,8 @@
       <div class="block">
         <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <a class="navbar-item" href="#">
-              <img src="assets/fbaudio.png" alt="FB Audio" width="100%">
+            <a class="" href="#">
+              <img src="assets/fbaudio2.png" alt="FB Audio">
             </a>
           </div>
         </nav>
@@ -18,7 +18,7 @@
             <div class="card-header-title">
               <div class="field is-grouped">
                 <p class="control is-expanded">
-                  <input #fbvidurl class="input" type="text" placeholder="FB video url..">
+                  <input #fbvidurl class="input" [(value)]="urlValue" type="text" placeholder="FB video url..">
                 </p>
                 <p class="control is-expanded">
                   <button #listentbtn class="button is-info" (click)="listenBtn()">
@@ -33,8 +33,8 @@
           </header>
           <div class="card-content">
             <div class="content">
-              <div plyr (plyrPlay)="played($event)" [plyrOptions]="plyOptions" plyrTitle="Audio" plyrType="audio" [plyrPlaysInline]="true"
-                [plyrCrossOrigin]="true" [plyrSources]="audioSources">
+              <div plyr (plyrPlay)="played($event)" [plyrOptions]="plyOptions" plyrTitle="Audio" plyrType="audio"
+                [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrSources]="audioSources">
               </div>
             </div>
           </div>
@@ -44,6 +44,10 @@
             </p>
           </footer>
         </div>
+      </div>
+      <div #errorElement class="notification is-danger is-light" style="display: none;">
+        <button class="delete" (click)="closeErrorElement($event.target)"></button>
+        {{errorMsg}}
       </div>
     </div>
     <div class="column">

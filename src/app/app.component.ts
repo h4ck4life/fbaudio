@@ -25,6 +25,10 @@ export class AppComponent {
   @ViewChild("fbvidurl") fbVidUrlElement: ElementRef;
   @ViewChild("listentbtn") listentBtnElement: ElementRef;
   @ViewChild("listenTxt") listenTxtElement: ElementRef;
+  @ViewChild("errorElement") errorElement: ElementRef;
+
+  urlValue = "";
+  errorMsg = "";
 
   plyOptions = {
     settings: [],
@@ -55,6 +59,8 @@ export class AppComponent {
   }
 
   listenBtn(): void {
+    console.log(this.urlValue);
+
     const fbUrlValue = this.fbVidUrlElement.nativeElement.value;
     if (fbUrlValue && fbUrlValue != '') {
       this.disableBtnState(true);
@@ -70,14 +76,16 @@ export class AppComponent {
           });
         },
         (error) => {
-          console.log('not ok');
-          console.log(error)
+          console.log(error);
+          this.disableBtnState(false);
+          this.fbVidUrlElement.nativeElement.value = "";
+          this.showErrorMsg("Please use valid facebook video url");
         },
         () => {
           this.disableBtnState(false);
           this.fbVidUrlElement.nativeElement.value = "";
-          this.plyr.player.pause();
-          this.plyr.player.play();
+          this.fbVidUrlElement.nativeElement.classList.remove("is-danger");
+          this.errorElement.nativeElement.style.display = "none";
         }
       )
     } else {
@@ -85,9 +93,18 @@ export class AppComponent {
     }
   }
 
+  closeErrorElement(event) {
+    this.errorElement.nativeElement.style.display = "none";
+  }
+
   private disableBtnState(disabled: boolean): void {
     this.fbVidUrlElement.nativeElement.disabled = disabled;
     this.listentBtnElement.nativeElement.disabled = disabled;
+  }
+
+  private showErrorMsg(msg: string) {
+    this.errorMsg = msg;
+    this.errorElement.nativeElement.style.display = "block";
   }
 
 }
