@@ -18,7 +18,7 @@
             <div class="card-header-title">
               <div class="field is-grouped">
                 <p class="control is-expanded">
-                  <input #fbvidurl class="input" [(value)]="urlValue" type="text" placeholder="FB video url..">
+                  <input #fbvidurl class="input" [(value)]="urlValue" type="text" placeholder="Facebook video url...">
                 </p>
                 <p class="control is-expanded">
                   <button #listentbtn class="button is-info" (click)="listenBtn()">
@@ -47,7 +47,7 @@
       </div>
       <div #errorElement class="notification is-danger is-light" style="display: none;">
         <button class="delete" (click)="closeErrorElement($event.target)"></button>
-        {{errorMsg}}
+        <i class="fas fa-exclamation-triangle"></i> {{errorMsg}}
       </div>
     </div>
     <div class="column">

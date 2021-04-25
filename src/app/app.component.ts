@@ -78,20 +78,17 @@ export class AppComponent {
           console.log(error);
           this.disableBtnState(false);
           this.fbVidUrlElement.nativeElement.value = "";
-          this.fbVidUrlElement.nativeElement.classList.remove("is-danger");
-          this.showErrorMsg("Please use valid facebook video url");
+          this.showErrorMsg("Please use valid facebook video url.");
         },
         () => {
           this.disableBtnState(false);
           this.fbVidUrlElement.nativeElement.value = "";
-          this.fbVidUrlElement.nativeElement.classList.remove("is-danger");
           this.errorElement.nativeElement.style.display = "none";
         }
       )
     } else {
-      this.fbVidUrlElement.nativeElement.classList.toggle("is-danger");
       this.fbVidUrlElement.nativeElement.value = "";
-      this.showErrorMsg("Please use valid facebook video url");
+      this.showErrorMsg("Please use valid facebook video url.");
     }
   }
 
