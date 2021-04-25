@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-app.use(express.static('./dist/radius'));
+app.use(express.static('./dist/fbaudio'));
 
 app.get('/*', function (req, res) {
   res.sendFile('index.html', { root: 'dist/fbaudio' }
