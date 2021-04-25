@@ -1,4 +1,4 @@
-<div class="">
+<div class="container is-fluid">
   <div class="columns">
     <div class="column">
     </div>
@@ -20,16 +20,16 @@
                 <p class="control is-expanded has-icons-left">
                   <input #fbvidurl class="input" [value]="urlValue" (change)="urlValue=$event.target.value" type="text"
                     placeholder="Facebook video url...">
-                    <span class="icon is-small is-left">
-                      <i class="fab fa-facebook-square"></i>
-                    </span>
+                  <span class="icon is-small is-left">
+                    <i class="fab fa-facebook-square"></i>
+                  </span>
                 </p>
                 <p class="control is-expanded">
                   <button #listentbtn class="button is-info" (click)="listenBtn()">
+                    <span #listenTxt>Get</span>
                     <span class="icon">
                       <i class="fas fa-volume-up"></i>
                     </span>
-                    <span #listenTxt>Get audio</span>
                   </button>
                 </p>
               </div>
