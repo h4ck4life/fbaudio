@@ -77,20 +77,18 @@ export class AppComponent {
       this.disableBtnState(true);
       this.facebookService.getAudioLink(fbUrlValue).subscribe(
         (response) => {
-          var el = $('<div></div>');
+          const el = $('<div></div>');
           el.html(response.body);
-          const audioUrl = $('a:contains("Audio Only")', el).attr('href'); // All the anchor elements
-          this.audioSources = [];
-          this.audioSources.push({
-            src: audioUrl,
-            type: 'audio/mp3'
-          });
-          this.playHistoryList.push({
-            fbUrl: fbUrlValue,
-            audioUrl,
-            trackTitle: `Track ${(this.playHistoryList.length + 1)}`,
-            trackDescription: 'No description'
-          });
+          const audioUrl = $('a:contains("Audio Only")', el).attr('href');
+          if (this.plyr.player.playing) {
+            this.addIntoPlaylist(fbUrlValue, audioUrl);
+          } else {
+            this.audioSources = [{
+              src: audioUrl,
+              type: 'audio/mp3'
+            }];
+            this.addIntoPlaylist(fbUrlValue, audioUrl);
+          }
         },
         (error) => {
           console.log(error);
@@ -116,12 +114,22 @@ export class AppComponent {
       src: audioUrl,
       type: 'audio/mp3'
     }];
-    //this.audioSources.push();
-    this.plyr.player.play();
+    setTimeout(() => {
+      this.plyr.player.play();
+    }, 1000);
   }
 
   closeErrorElement(event): void {
     this.errorElement.nativeElement.style.display = 'none';
+  }
+
+  private addIntoPlaylist(fbUrlValue: string, audioUrl: string) {
+    this.playHistoryList.push({
+      fbUrl: fbUrlValue,
+      audioUrl,
+      trackTitle: `Track ${(this.playHistoryList.length + 1)}`,
+      trackDescription: 'No description'
+    });
   }
 
   private disableBtnState(disabled: boolean): void {
