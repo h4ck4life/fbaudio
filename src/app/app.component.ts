@@ -109,14 +109,21 @@ export class AppComponent {
   }
 
   playBtn(audioUrl: string): void {
-    this.plyr.player.stop();
-    this.audioSources = [{
-      src: audioUrl,
-      type: 'audio/mp3'
-    }];
-    setTimeout(() => {
+    if (this.plyr.player.playing && audioUrl === this.audioSources[0].src) {
+      this.plyr.player.pause();
+    } else if (this.plyr.player.paused && audioUrl === this.audioSources[0].src) {
       this.plyr.player.play();
-    }, 1000);
+    } else {
+      this.plyr.player.stop();
+      this.audioSources = [{
+        src: audioUrl,
+        type: 'audio/mp3'
+      }];
+      setTimeout(() => {
+        this.plyr.player.play();
+      }, 1000);
+
+    }
   }
 
   closeErrorElement(event): void {
