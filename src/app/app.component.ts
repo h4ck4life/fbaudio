@@ -29,6 +29,7 @@ export class AppComponent {
 
   urlValue = "";
   errorMsg = "";
+  isLoading = false;
 
   plyOptions = {
     settings: [],
@@ -98,7 +99,8 @@ export class AppComponent {
 
   private disableBtnState(disabled: boolean): void {
     this.fbVidUrlElement.nativeElement.disabled = disabled;
-    this.listentBtnElement.nativeElement.disabled = disabled;
+    //this.listentBtnElement.nativeElement.disabled = disabled;
+    this.isLoading = disabled;
   }
 
   private showErrorMsg(msg: string) {

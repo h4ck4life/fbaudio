@@ -25,7 +25,7 @@
                   </span>
                 </p>
                 <p class="control is-expanded">
-                  <button #listentbtn class="button is-info" (click)="listenBtn()">
+                  <button #listentbtn [class.is-loading]="isLoading" class="button is-info" (click)="listenBtn()">
                     <span #listenTxt>Get</span>
                     <span class="icon">
                       <i class="fas fa-volume-up"></i>
@@ -37,8 +37,21 @@
           </header>
           <div class="card-content">
             <div class="content">
-              <div plyr (plyrPlay)="played($event)" [plyrOptions]="plyOptions" plyrTitle="Audio" plyrType="audio"
-                [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrSources]="audioSources">
+              <div class="block">
+                <div plyr (plyrPlay)="played($event)" [plyrOptions]="plyOptions" plyrTitle="Audio" plyrType="audio"
+                  [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrSources]="audioSources">
+                </div>
+              </div>
+              <div class="block">
+                <script async
+                  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9221126498873830"
+                  crossorigin="anonymous"></script>
+                <!-- SquareAd -->
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9221126498873830"
+                  data-ad-slot="8889754329" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
               </div>
             </div>
           </div>
