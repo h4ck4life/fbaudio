@@ -40,7 +40,7 @@
               <div plyr (plyrPlay)="played($event)" [plyrOptions]="plyOptions" plyrTitle="Audio" plyrType="audio"
                 [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrSources]="audioSources">
               </div>
-              <div class="divider">Play history</div>
+              <div class="divider">Playlist</div>
               <li *ngFor="let item of playHistoryList">
                 {{item.fbUrl}}
               </li>
