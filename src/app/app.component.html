@@ -42,9 +42,11 @@
               </div>
               <div class="divider">Playlist</div>
 
-              <div class="columns is-vcentered is-mobile playlist" *ngFor="let item of playHistoryList">
+              <div class="columns is-vcentered is-mobile playlist" *ngFor="let item of playHistoryList; index as i">
                 <div class="column is-one-fifth has-text-right">
-                  <button class="button is-small is-info">Play</button>
+                  <button class="button is-small is-info is-light" (click)="playBtn(item.audioUrl)">
+                    <i class="fas fa-play"></i>
+                  </button>
                 </div>
                 <div class="column">
                   <span class="content"><strong>{{item.trackTitle}}</strong></span>

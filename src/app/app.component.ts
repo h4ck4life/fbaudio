@@ -7,7 +7,7 @@ declare var $: any;
 
 interface PlayHistory {
   fbUrl: string;
-  vidUrl: string;
+  audioUrl: string;
   trackTitle?: string;
   trackDescription?: string;
 }
@@ -39,12 +39,13 @@ export class AppComponent {
   isLoading = false;
 
   playHistoryList: PlayHistory[] = [
-    
+
   ];
 
   plyOptions = {
     settings: [],
-    autoplay: false
+    autoplay: false,
+    blankVideo: ''
   };
 
   audioSources = [
@@ -86,7 +87,7 @@ export class AppComponent {
           });
           this.playHistoryList.push({
             fbUrl: fbUrlValue,
-            vidUrl: audioUrl,
+            audioUrl,
             trackTitle: `Track ${(this.playHistoryList.length + 1)}`,
             trackDescription: 'No description'
           });
@@ -107,6 +108,16 @@ export class AppComponent {
       this.urlValue = '';
       this.showErrorMsg('Please use valid facebook video url.');
     }
+  }
+
+  playBtn(audioUrl: string): void {
+    this.plyr.player.stop();
+    this.audioSources = [{
+      src: audioUrl,
+      type: 'audio/mp3'
+    }];
+    //this.audioSources.push();
+    this.plyr.player.play();
   }
 
   closeErrorElement(event): void {
