@@ -19,7 +19,7 @@
               <div class="field is-grouped">
                 <p class="control is-expanded has-icons-left">
                   <input #fbvidurl class="input" [value]="urlValue" (change)="urlValue=$event.target.value" type="text"
-                    placeholder="Facebook video url...">
+                    placeholder="Facebook video url..">
                   <span class="icon is-small is-left">
                     <i class="fab fa-facebook-square"></i>
                   </span>
@@ -41,9 +41,18 @@
                 [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrSources]="audioSources">
               </div>
               <div class="divider">Playlist</div>
-              <li *ngFor="let item of playHistoryList">
-                {{item.fbUrl}}
-              </li>
+
+              <div class="columns is-vcentered is-mobile playlist" *ngFor="let item of playHistoryList">
+                <div class="column is-one-fifth has-text-right">
+                  <button class="button is-small is-info">Play</button>
+                </div>
+                <div class="column">
+                  <span class="content"><strong>{{item.trackTitle}}</strong></span>
+                  <br />
+                  <span class="content is-small">{{item.trackDescription}}</span>
+                </div>
+              </div>
+
               <div *ngIf="playHistoryList.length < 1" class="content is-small has-text-centered" style="color: #e6e6e6;">
                 Empty
               </div>

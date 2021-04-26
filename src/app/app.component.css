@@ -5,3 +5,7 @@
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+
+.playlist:hover {
+  background-color: rgb(245 248 255);
+}

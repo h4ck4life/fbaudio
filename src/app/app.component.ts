@@ -8,6 +8,8 @@ declare var $: any;
 interface PlayHistory {
   fbUrl: string;
   vidUrl: string;
+  trackTitle?: string;
+  trackDescription?: string;
 }
 
 @Component({
@@ -84,7 +86,9 @@ export class AppComponent {
           });
           this.playHistoryList.push({
             fbUrl: fbUrlValue,
-            vidUrl: audioUrl
+            vidUrl: audioUrl,
+            trackTitle: `Track ${(this.playHistoryList.length + 1)}`,
+            trackDescription: 'No description'
           });
         },
         (error) => {
