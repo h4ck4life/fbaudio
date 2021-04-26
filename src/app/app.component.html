@@ -40,6 +40,13 @@
               <div plyr (plyrPlay)="played($event)" [plyrOptions]="plyOptions" plyrTitle="Audio" plyrType="audio"
                 [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrSources]="audioSources">
               </div>
+              <div class="divider">Play history</div>
+              <li *ngFor="let item of playHistoryList">
+                {{item.fbUrl}}
+              </li>
+              <div *ngIf="playHistoryList.length < 1" class="content is-small has-text-centered" style="color: #e6e6e6;">
+                Empty
+              </div>
             </div>
           </div>
           <footer class="card-footer">

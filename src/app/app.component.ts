@@ -5,6 +5,11 @@ import { FacebookService } from './facebook.service';
 
 declare var $: any;
 
+interface PlayHistory {
+  fbUrl: string;
+  vidUrl: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,19 +27,23 @@ export class AppComponent {
   @ViewChild(PlyrComponent, { static: true })
   plyr: PlyrComponent;
 
-  @ViewChild("fbvidurl") fbVidUrlElement: ElementRef;
-  @ViewChild("listentbtn") listentBtnElement: ElementRef;
-  @ViewChild("listenTxt") listenTxtElement: ElementRef;
-  @ViewChild("errorElement") errorElement: ElementRef;
+  @ViewChild('fbvidurl') fbVidUrlElement: ElementRef;
+  @ViewChild('listentbtn') listentBtnElement: ElementRef;
+  @ViewChild('listenTxt') listenTxtElement: ElementRef;
+  @ViewChild('errorElement') errorElement: ElementRef;
 
-  urlValue = "";
-  errorMsg = "";
+  urlValue = '';
+  errorMsg = '';
   isLoading = false;
+
+  playHistoryList: PlayHistory[] = [
+    
+  ];
 
   plyOptions = {
     settings: [],
     autoplay: false
-  }
+  };
 
   audioSources = [
     {
@@ -43,7 +52,7 @@ export class AppComponent {
     }
   ];
 
-  played(event: Plyr.PlyrEvent) {
+  played(event: Plyr.PlyrEvent): void {
     console.log('played', event);
   }
 
@@ -60,9 +69,8 @@ export class AppComponent {
   }
 
   listenBtn(): void {
-    //const fbUrlValue = this.fbVidUrlElement.nativeElement.value as string;
     const fbUrlValue = this.urlValue;
-    if (fbUrlValue && fbUrlValue != '' && fbUrlValue.includes('https')) {
+    if (fbUrlValue && fbUrlValue !== '' && fbUrlValue.includes('https')) {
       this.disableBtnState(true);
       this.facebookService.getAudioLink(fbUrlValue).subscribe(
         (response) => {
@@ -74,38 +82,41 @@ export class AppComponent {
             src: audioUrl,
             type: 'audio/mp3'
           });
+          this.playHistoryList.push({
+            fbUrl: fbUrlValue,
+            vidUrl: audioUrl
+          });
         },
         (error) => {
           console.log(error);
           this.disableBtnState(false);
-          this.urlValue = "";
-          this.showErrorMsg("Please use valid facebook video url.");
+          this.urlValue = '';
+          this.showErrorMsg('Please use valid facebook video url.');
         },
         () => {
           this.disableBtnState(false);
-          this.urlValue = "";
-          this.errorElement.nativeElement.style.display = "none";
+          this.urlValue = '';
+          this.errorElement.nativeElement.style.display = 'none';
         }
       )
     } else {
-      this.urlValue = "";
-      this.showErrorMsg("Please use valid facebook video url.");
+      this.urlValue = '';
+      this.showErrorMsg('Please use valid facebook video url.');
     }
   }
 
-  closeErrorElement(event) {
-    this.errorElement.nativeElement.style.display = "none";
+  closeErrorElement(event): void {
+    this.errorElement.nativeElement.style.display = 'none';
   }
 
   private disableBtnState(disabled: boolean): void {
     this.fbVidUrlElement.nativeElement.disabled = disabled;
-    //this.listentBtnElement.nativeElement.disabled = disabled;
     this.isLoading = disabled;
   }
 
-  private showErrorMsg(msg: string) {
+  private showErrorMsg(msg: string): void {
     this.errorMsg = msg;
-    this.errorElement.nativeElement.style.display = "block";
+    this.errorElement.nativeElement.style.display = 'block';
   }
 
 }
