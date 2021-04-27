@@ -111,8 +111,8 @@ export class AppComponent {
   playBtn(audioUrl: string, index: any): void {
     if (this.plyr.player.playing && audioUrl === this.audioSources[0].src) {
       this.plyr.player.pause();
-      document.getElementById('btn-state-' + index).classList.add('fa-play');
       document.getElementById('btn-state-' + index).classList.remove('fa-pause');
+      document.getElementById('btn-state-' + index).classList.add('fa-play');
     } else if (this.plyr.player.paused && audioUrl === this.audioSources[0].src) {
       this.plyr.player.play();
       document.getElementById('btn-state-' + index).classList.remove('fa-play');
@@ -125,11 +125,19 @@ export class AppComponent {
       }];
       setTimeout(() => {
         this.plyr.player.play();
+        this.resetPlayBtnIcon();
         document.getElementById('btn-state-' + index).classList.remove('fa-play');
         document.getElementById('btn-state-' + index).classList.add('fa-pause');
       }, 1000);
 
     }
+  }
+
+  private resetPlayBtnIcon(): void {
+    document.querySelectorAll('.fa-pause').forEach((el) => {
+      el.classList.remove('fa-pause');
+      el.classList.add('fa-play');
+    });
   }
 
   closeErrorElement(event): void {
