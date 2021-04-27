@@ -44,8 +44,8 @@
 
               <div class="columns is-vcentered is-mobile playlist" *ngFor="let item of playHistoryList; index as i">
                 <div class="column is-one-fifth has-text-right">
-                  <button class="button is-small is-info is-light" (click)="playBtn(item.audioUrl)">
-                    <i class="fas fa-play"></i>
+                  <button class="button is-small is-info is-light" (click)="playBtn(item.audioUrl, i)">
+                    <i id="btn-state-{{i}}" class="fas fa-play"></i>
                   </button>
                 </div>
                 <div class="column">
