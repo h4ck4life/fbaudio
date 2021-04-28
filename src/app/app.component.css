@@ -6,6 +6,10 @@
   transform: translate(-50%, -50%);
 }
 
-.playlist:hover {
+/* .playlist:hover {
+  background-color: rgb(245 248 255);
+} */
+
+.playlist-active {
   background-color: rgb(245 248 255);
 }

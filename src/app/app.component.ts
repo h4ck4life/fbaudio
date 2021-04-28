@@ -56,7 +56,11 @@ export class AppComponent implements AfterViewChecked {
     }
   ];
   ngAfterViewChecked(): void {
-
+    window.addEventListener("beforeunload", function (e) {
+      var confirmationMessage = 'Are you sure you want to leave?';
+      (e || window.event).returnValue = confirmationMessage;
+      return confirmationMessage;
+    });
   }
 
   played(event: Plyr.PlyrEvent): void {
@@ -121,10 +125,12 @@ export class AppComponent implements AfterViewChecked {
       this.plyr.player.pause();
       document.getElementById('btn-state-' + index).classList.remove('fa-pause');
       document.getElementById('btn-state-' + index).classList.add('fa-play');
+      this.playlistFocus(index);
     } else if (this.plyr.player.paused && audioUrl === this.audioSources[0].src) {
       this.plyr.player.play();
       document.getElementById('btn-state-' + index).classList.remove('fa-play');
       document.getElementById('btn-state-' + index).classList.add('fa-pause');
+      this.playlistFocus(index);
     } else {
       this.plyr.player.stop();
       this.audioSources = [{
@@ -136,9 +142,18 @@ export class AppComponent implements AfterViewChecked {
         this.resetPlayBtnIcon();
         document.getElementById('btn-state-' + index).classList.remove('fa-play');
         document.getElementById('btn-state-' + index).classList.add('fa-pause');
+        this.playlistFocus(index);
       }, 1000);
 
     }
+  }
+
+  playlistFocus(index: any): void {
+    const elements: Element[] = Array.from(document.getElementsByClassName('playlist'));
+    elements.forEach((el: Element) => {
+      el.classList.remove('playlist-active');
+    });
+    document.getElementById('playlist-' + index).classList.toggle('playlist-active');
   }
 
   private resetPlayBtnIcon(): void {

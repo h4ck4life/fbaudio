@@ -1,4 +1,4 @@
-<div class="container is-fluid centered">
+<div class="container is-fluid">
   <div class="columns is-vcentered">
     <div class="column">
     </div>
@@ -41,8 +41,7 @@
                 [plyrPlaysInline]="true" [plyrCrossOrigin]="true" [plyrSources]="audioSources">
               </div>
               <div class="divider">Playlist</div>
-
-              <div class="columns is-vcentered is-mobile playlist" *ngFor="let item of playHistoryList; index as i">
+              <div class="columns is-vcentered is-mobile playlist" id="playlist-{{i}}" *ngFor="let item of playHistoryList; index as i">
                 <div class="column is-one-fifth has-text-right">
                   <button class="button is-small is-info is-light" (click)="playBtn(item.audioUrl, i)">
                     <i id="btn-state-{{i}}" class="fas fa-play"></i>
@@ -54,7 +53,6 @@
                   <span class="content is-small">{{item.trackDescription}}</span>
                 </div>
               </div>
-
               <div *ngIf="playHistoryList.length < 1" class="content is-small has-text-centered" style="color: #e6e6e6;">
                 Empty
               </div>
