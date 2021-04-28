@@ -46,7 +46,7 @@ export class AppComponent implements AfterViewChecked {
     settings: [],
     autoplay: false,
     blankVideo: '',
-    controls: ['mute', 'progress', 'volume', 'current-time', 'settings']
+    controls: ['rewind', 'progress', 'current-time', 'fast-forward', 'volume', 'mute']
   };
 
   audioSources = [
