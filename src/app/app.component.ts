@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PlyrComponent } from 'ngx-plyr';
 import * as Plyr from 'plyr';
 import { FacebookService } from './facebook.service';
@@ -17,7 +17,7 @@ interface PlayHistory {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewChecked {
 
   constructor(
     private facebookService: FacebookService
@@ -45,7 +45,8 @@ export class AppComponent {
   plyOptions = {
     settings: [],
     autoplay: false,
-    blankVideo: ''
+    blankVideo: '',
+    controls: ['mute', 'progress', 'volume', 'current-time', 'settings']
   };
 
   audioSources = [
@@ -54,6 +55,9 @@ export class AppComponent {
       type: 'audio/mp3',
     }
   ];
+  ngAfterViewChecked(): void {
+
+  }
 
   played(event: Plyr.PlyrEvent): void {
     console.log('played', event);
@@ -80,14 +84,19 @@ export class AppComponent {
           const el = $('<div></div>');
           el.html(response.body);
           const audioUrl = $('a:contains("Audio Only")', el).attr('href');
-          if (this.plyr.player.playing) {
-            this.addIntoPlaylist(fbUrlValue, audioUrl);
+          console.log(audioUrl);
+          if (audioUrl !== undefined) {
+            if (this.plyr.player.playing) {
+              this.addIntoPlaylist(fbUrlValue, audioUrl);
+            } else {
+              this.audioSources = [{
+                src: audioUrl,
+                type: 'audio/mp3'
+              }];
+              this.addIntoPlaylist(fbUrlValue, audioUrl);
+            }
           } else {
-            this.audioSources = [{
-              src: audioUrl,
-              type: 'audio/mp3'
-            }];
-            this.addIntoPlaylist(fbUrlValue, audioUrl);
+            this.showErrorMsg('There is no audio found for this video.');
           }
         },
         (error) => {
@@ -99,9 +108,9 @@ export class AppComponent {
         () => {
           this.disableBtnState(false);
           this.urlValue = '';
-          this.errorElement.nativeElement.style.display = 'none';
+          //this.errorElement.nativeElement.style.display = 'none';
         }
-      )
+      );
     } else {
       this.urlValue = '';
       this.showErrorMsg('Please use valid facebook video url.');
