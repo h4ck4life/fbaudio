@@ -60,7 +60,7 @@ export class AppComponent implements AfterViewChecked {
   }
 
   played(event: Plyr.PlyrEvent): void {
-    console.log('played', event);
+    //console.log('played', event);
   }
 
   play(): void {
@@ -84,7 +84,6 @@ export class AppComponent implements AfterViewChecked {
           const el = $('<div></div>');
           el.html(response.body);
           const audioUrl = $('a:contains("Audio Only")', el).attr('href');
-          console.log(audioUrl);
           if (audioUrl !== undefined) {
             if (this.plyr.player.playing) {
               this.addIntoPlaylist(fbUrlValue, audioUrl);
