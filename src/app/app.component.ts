@@ -132,6 +132,7 @@ export class AppComponent implements AfterViewChecked {
       document.getElementById('btn-state-' + index).classList.add('fa-pause');
       this.playlistFocus(index);
     } else {
+      document.getElementById('btn-state-' + index).parentElement.classList.add('is-loading');
       this.plyr.player.stop();
       this.audioSources = [{
         src: audioUrl,
@@ -140,6 +141,7 @@ export class AppComponent implements AfterViewChecked {
       setTimeout(() => {
         this.plyr.player.play();
         this.resetPlayBtnIcon();
+        document.getElementById('btn-state-' + index).parentElement.classList.remove('is-loading');
         document.getElementById('btn-state-' + index).classList.remove('fa-play');
         document.getElementById('btn-state-' + index).classList.add('fa-pause');
         this.playlistFocus(index);
